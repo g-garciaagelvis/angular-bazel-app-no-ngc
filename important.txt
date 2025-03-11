@@ -1,0 +1,33 @@
+    ts_config(
+        name = "tsconfig",
+        src = "tsconfig.json",
+        visibility = ["//visibility:public"],
+    )
+
+
+    srcs = native.glob(
+        ["src/**/*"],
+        exclude = [
+            "src/**/*.spec.ts",
+            "dist/",
+        ],
+    )
+
+    ts_project(
+        name = "no_ngc_example_app",
+        # Default tsconfig and aligning attributes
+        tsconfig = "//:tsconfig",
+        srcs = srcs,
+        transpiler = "tsc",
+        out_dir = "dist/out-tsc",
+        declaration = True,
+        declaration_map = True,
+        source_map = True,
+        deps = APPLICATION_DEPS,    
+    )
+
+    copy_directory(
+        name = "_no_ngc_example_app",
+        srcs = ["dist/out-tsc/**"],
+        out = native.package_name(),
+    )
