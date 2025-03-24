@@ -19,9 +19,9 @@ npm.npm_translate_lock(
     bins = {
             "@angular/compiler-cli": ["ngcc=./bundles/ngcc/main-ngcc.js"]
         },
-    npmrc = "//:.npmrc",
-    pnpm_lock = "//:pnpm-lock.yaml",
-    verify_node_modules_ignored = "//:.bazelignore",
+    npmrc = "//portal/frontend:.npmrc",
+    pnpm_lock = "//portal/frontend:pnpm-lock.yaml",
+    # verify_node_modules_ignored = "//:.bazelignore",
 )
 
 use_repo(npm, "npm")
@@ -37,7 +37,7 @@ use_repo(pnpm, "pnpm")
 rules_ts_ext = use_extension("@aspect_rules_ts//ts:extensions.bzl", "ext", dev_dependency = True)
 
 rules_ts_ext.deps(
-    ts_version_from = "//:package.json",
+    ts_version_from = "//portal/frontend:package.json",
 )
 
 use_repo(rules_ts_ext, "npm_typescript")
